@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
@@ -6,21 +6,19 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   item: FirebaseObjectObservable<any>;
   cuisines = [];
-   constructor(db: AngularFireDatabase) {
-    this.item = db.object('/cuisines');
+
+   constructor(private db: AngularFireDatabase) {
 
    }
-   save(newName: string) {
-     this.item.set({ name: newName });
+
+
+   ngOnInit(){
+     this.item = this.db.object('/cuisines');
    }
-   update(newSize: string) {
-     this.item.update({ size: newSize });
-   }
-   delete() {
-     this.item.remove();
-   }
+
 
 }
