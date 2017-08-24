@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
 
   item: FirebaseObjectObservable<any>;
   cuisines = [];
+  restaurant;
 
    constructor(private db: AngularFireDatabase) {
 
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
 
    ngOnInit(){
      this.item = this.db.object('/cuisines');
+     this.restaurant = this.db.object('/restaurant/');
    }
 
 
