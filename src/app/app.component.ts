@@ -43,4 +43,8 @@ export class AppComponent implements OnInit {
      });
    }
 
+   remove(){
+     this.db.object('/restaurant').remove();
+   }
+
 }
