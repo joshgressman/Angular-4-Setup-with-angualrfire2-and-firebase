@@ -2,8 +2,9 @@
 <ul>
   <!-- the | async binds to the observable allowing real time updates and listen for changes -->
   <li class="text" *ngFor="let items of item | async">
-    {{items}}
+    {{items.name}}
   </li>
 </ul>
-
+<hr>
+<button (click)="add">Add</button>
 <h1>{{(restaurant | async)?.name }}</h1>
