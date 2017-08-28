@@ -8,6 +8,10 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 })
 export class AppComponent implements OnInit {
 
+//Note: when using the LIST you can work with a list of data
+// when working with the object observable you are working with
+// a single object
+
   item: FirebaseListObservable<any[]>;
 
   cuisines: FirebaseListObservable<any[]>;
@@ -28,6 +32,15 @@ export class AppComponent implements OnInit {
    add(){
     const item = this.db.list('/cuisines');
     item.push({name: "Asain"});
+   }
+
+   update(){
+     this.db.object('/restaurant').set({
+       name: "New Name 2",
+       rating: 5,
+       cuisin: "New Food"
+
+     });
    }
 
 }
