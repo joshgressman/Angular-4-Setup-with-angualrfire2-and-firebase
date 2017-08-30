@@ -1,5 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,7 @@ export class AppComponent implements OnInit {
   //
   // cuisines: FirebaseListObservable<any[]>;
   cuisines: FirebaseListObservable<any[]>;
-  restaurants: FirebaseListObservable<any[]>;
+  restaurants: Observable<any[]>;
 
   restaurant;
 
@@ -29,9 +31,20 @@ export class AppComponent implements OnInit {
     //  this.item = this.db.list('/cuisines');
     //  console.log(this.item);
     //  this.restaurant = this.db.object('/restaurant');
+
+    //This is an example of joinin data from different nodes
+    //the # value in restaurants is querying the cuisue by key in the second map method
     this.cuisines = this.db.list('/cuisines');
-    this.restaurants = this.db.list('/restaurants');
-    console.log(this.restaurants);
+    this.restaurants = this.db.list('/restaurants')
+    .map(restaurants => {
+       console.log("Before Map", restaurants);
+       restaurants.map(restaurant => {
+         restaurant.cuisineType = this.db.object('/cuisines/' + restaurant.cuisine);
+       })
+       console.log("After Map", restaurants);
+       return restaurants;
+    });
+
    }
 
    add(){
