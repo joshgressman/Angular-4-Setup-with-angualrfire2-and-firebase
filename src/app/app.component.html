@@ -1,11 +1,22 @@
 
 <ul>
   <!-- the | async binds to the observable allowing real time updates and listen for changes -->
-  <li class="text" *ngFor="let items of item | async">
+  <li class="text" *ngFor="let items of cuisines | async">
     {{items.$value}}
   </li>
 </ul>
 <hr>
 <button (click)="add()">Add</button>
 <button (click)="update()">Update</button>
+<button (click)="remove()">Remove</button>
 <h1>{{(restaurant | async)?.name }}</h1>
+
+<h1>Cuisines</h1>
+<ul>
+  <li *ngFor="let c of cuisines | async">{{c.$key + '-' + c.$value}}</li>
+</ul>
+
+<h1>Restaurants</h1>
+<ul>
+  <li *ngFor="let r of restaurants | async">{{r.name}}</li>
+</ul>

@@ -12,9 +12,12 @@ export class AppComponent implements OnInit {
 // when working with the object observable you are working with
 // a single object
 
-  item: FirebaseListObservable<any[]>;
-
+  // item: FirebaseListObservable<any[]>;
+  //
+  // cuisines: FirebaseListObservable<any[]>;
   cuisines: FirebaseListObservable<any[]>;
+  restaurants: FirebaseListObservable<any[]>;
+
   restaurant;
 
    constructor(private db: AngularFireDatabase) {
@@ -23,10 +26,12 @@ export class AppComponent implements OnInit {
 
 
    ngOnInit(){
-     this.item = this.db.list('/cuisines');
-     console.log(this.item);
-     this.restaurant = this.db.object('/restaurant');
-
+    //  this.item = this.db.list('/cuisines');
+    //  console.log(this.item);
+    //  this.restaurant = this.db.object('/restaurant');
+    this.cuisines = this.db.list('/cuisines');
+    this.restaurants = this.db.list('/restaurants');
+    console.log(this.restaurants);
    }
 
    add(){
@@ -44,7 +49,11 @@ export class AppComponent implements OnInit {
    }
 
    remove(){
-     this.db.object('/restaurant').remove();
+     this.db.object('/restaurant').remove()
+     //push, update, set remove returns a promise
+     //Promise resolved when completed / response / error
+     .then(message => console.log("success"))
+     .catch(error => console.log(error));
    }
 
 }
